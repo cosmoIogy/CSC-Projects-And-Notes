@@ -1,0 +1,6 @@
+Multiple Inheritance:
+    When a class DIRECTLY inherits from more than one super class.
+
+    What it is not:
+        when a class has 1 super class and that super class has 1 super class
+

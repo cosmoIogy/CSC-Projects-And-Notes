@@ -1,0 +1,7 @@
+Dictionaries are sets of key-value pairs.
+    -Keys are unique
+    -Values correspond to keys
+    -format key:value
+
+Never assume a dictionary has order
+Python 3.7+ maintains insertion order

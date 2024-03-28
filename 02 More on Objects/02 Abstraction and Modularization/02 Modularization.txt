@@ -1,0 +1,9 @@
+Modularization
+    The concept of dividing a whole into well defined parts that can each be examined separately.
+    Makes maintaining code much easier.
+
+Ex : The way I'm structuring these notes
+
+Ex : When designing a vehicle class, you may end up splitting it into other classes like:
+    Car, Truck, Bike, and HotAirBalloon, and Airplane, and PiggyBackFriend can be considered Modularization instead of having the vehicle class 
+    handle every litle situation. 

@@ -1,0 +1,9 @@
+Filter
+    -a function (that isn't a function, it's class)
+    that filters items out of an iterable based on a function
+    -Takes in:
+        -a function that true/false
+        -an iterable (a collection of things we can iterate over)
+    -Returns
+        -a filter object (that we almost convert to a list)
+        that contains the items that the input function returned True for

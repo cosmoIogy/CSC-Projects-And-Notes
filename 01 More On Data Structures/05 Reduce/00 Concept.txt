@@ -1,0 +1,8 @@
+Reduce 
+    -it is a function that..
+    -takes in 
+        1. a function
+        2. an iterable (typically a list)
+    -returns 
+        - 1 single value (not a list like filter and map)
+    

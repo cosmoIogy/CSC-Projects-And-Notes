@@ -1,0 +1,12 @@
+Unit: any reasonably self-contained compontent
+    Ex : a function, a class, a file, a folder, etc...
+
+Coupling:
+    The linking of two seperate units
+    Goals is to have loosely coupled units
+    Tightly coupled units are generally considered bad practice
+
+Cohesion:
+    refers to the number of and diversity of tasks that a single unit is responsible for 
+    High Cohesion is good, because it means it is responsible for one single task
+    Low Cohesion means a unit is responsible for lots of things

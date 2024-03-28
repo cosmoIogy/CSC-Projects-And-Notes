@@ -1,0 +1,7 @@
+Abstraction - the ability to ignore the details of parts of a system in order to focus on a higher level
+
+Ex : Google Maps and zooming in/out shows Abstraction
+
+Ex: In programming, .append() on a list, typically when we use it we don't really carea out the details of implementation, 
+    just that it adds to the end of our list
+

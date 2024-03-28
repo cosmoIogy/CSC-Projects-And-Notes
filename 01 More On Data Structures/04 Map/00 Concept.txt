@@ -1,0 +1,9 @@
+Map 
+    -a function (not really, like filter and the thing about python making it a class)
+        that maps some input an output
+    -Takes In:
+        -a function that defines the mapping
+        -an iterable(typically a list)
+    -Returns:
+        -a map obect that typically gets converted to a list
+        -it contains the results of the apply the input function to each itesm in the list

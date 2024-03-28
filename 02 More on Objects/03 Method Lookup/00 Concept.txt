@@ -1,0 +1,12 @@
+Polymorphism:
+    -poly - multiple
+    -morph - form
+    -ism - a practice or philosophy
+    The idea of having different ways to interface with something
+    
+Method lookup:
+    A form of Polymorphism
+    Used to find the right method to call in a class heirarchy
+    Ex : if a subclass doesnt have the __str__ method but its superclass does, them the method in the superclass will be called
+
+

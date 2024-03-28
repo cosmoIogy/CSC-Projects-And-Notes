@@ -1,0 +1,5 @@
+List comprehension - the idea of creating a list in one line with no multi line loops
+
+This is a Pythonic thing
+Danger : Sometimes it makes your code a little more readable.
+    Most times it makes your code not so readable
