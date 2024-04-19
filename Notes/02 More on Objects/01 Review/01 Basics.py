@@ -22,3 +22,4 @@ class House:
 
 h = House(10.0,1)
 h.price = -100.00
+print(h)

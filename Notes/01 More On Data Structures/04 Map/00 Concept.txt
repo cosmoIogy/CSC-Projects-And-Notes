@@ -6,4 +6,4 @@ Map
         -an iterable(typically a list)
     -Returns:
         -a map obect that typically gets converted to a list
-        -it contains the results of the apply the input function to each itesm in the list
+        -it contains the results of the apply the input function to each item in the list

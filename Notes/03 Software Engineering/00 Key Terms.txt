@@ -1,0 +1,34 @@
+The Software Lifecycle - a model of how software is developed, used, maintained over time, and dies
+
+CRC Cards - Class, Responsibilities, Collaborator Cards
+    - a tool/stratefy to capture the classes (nouns),
+    their responsibilities (verbs),
+    a their collaborators (other classes)
+
+Documentation - explaining the what and why of the code
+    - frequently takes the form of comments in your code
+    - could be a website that fully describes everything for the code 
+    (ex: pygame documentation)
+
+Prototyping - the process of generating a preliminary model of an application or creating an early version to test
+
+Iterative Development - the process of implementing the basic functionality, testing it, implementing a little more, testing that,
+                        building on top of that functionality, and tesitng, and so on
+
+Testing - searching for the presence of errors
+
+Regresssion Testing - the process of running tests to see if anything that was previously working is now broken. The bit of code that is not working
+                    anymore is called a regression
+
+Debugging - the process of finding the source of an error
+
+Rubber Duck Debugging - debugging by describing what is happening in your code to a rubber duck (or just describing the code out loud)
+
+Profiling - the process of fixing performance issues in code
+                    Typically done using a profiler to show you the runtime and memory usage
+
+Refactoring - the process of modifying code without intoducing any new features
+            Typically done to make code more maintainable, readability, fewer lines, etc
+            (focusing on cohesion and coupling)
+
+Sanitizing Input - ensuring input is of the proper type, in the proper range of values, making sure its valid in any way before using it
