@@ -108,13 +108,30 @@ class Game(Frame):
         text_container.pack_propagate(False)
 
     def set_image(self):
-        pass
-
+        if self.current_room==None:
+            img = PhotoImage(file=os.path.join("images","skull.gif"))
+        else:
+            img = PhotoImage(file=self.current_room.image)
+        
+        self.image_container.config(image=img)
+        self.image_container.image = img
+                    
     def set_status(self,status:str):
-        pass
-
+        self.text.config(state=NORMAL)
+        self.text.delete(1.0, END)
+        if self.current_room == None:
+            self.text.insert(END, Game.Status.DEAD)
+        else:
+            content = f"{self.current_room}\n"
+            content += f"You are carrying: {self.inventory}\n\n"
+            content += status
+            self.text.insert(END, content)
+        
+        self.text.config(state=DISABLED)
+        
+        
     def clear_entry(self):
-        pass
+        self.player_input.delete(0, END)
 
     def handle_go(self,direction):
         pass
@@ -126,10 +143,49 @@ class Game(Frame):
         pass
 
     def handle_default(self):
-        pass
+        self.set_status(Game.Status.DEFAULT)
+        self.clear_entry()
 
     def play(self):
-        pass
+        self.setup_game()
+        self.setup_gui()
+        self.set_image()
+        self.set_status("")
 
-    def process_input(self):
-        pass
+    def process_input(self, event):
+        
+        # get the input from the entry element
+        action = self.player_input.get()
+        action = action.lower()
+        
+        #stop the game if applicable
+        if action in Game.EXIT_ACTION:
+            exit()
+            
+        #clear the entry if None
+        if self.current_room == None:
+            self.clear_entry()
+            return
+        
+        #sanitize the input
+        words = action.split()
+        
+        if len(words) != 2:
+            self.handle_default()
+            return 
+        
+        verb = words[0]
+        noun = words[1]
+        
+        #hande the appropriate verb
+        match verb:
+            case "go":
+                self.handle_go(noun)
+                
+            case "look":
+                self.handle_look(noun)
+                
+            case "take":
+                self.handle_take(noun)
+
+        self.clear_entry()
