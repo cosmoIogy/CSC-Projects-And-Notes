@@ -134,14 +134,31 @@ class Game(Frame):
         self.player_input.delete(0, END)
 
     def handle_go(self,direction):
-        pass
-
+        status = Game.Status.BAD_EXIT
+        
+        if direction in self.current_room.exits: #the keys for exits
+            self.current_room = self.current_room.exits[direction]
+            status = Game.Status.ROOM_CHANGED
+            
+        self.set_status(status)
+        self.set_image()
+        
     def handle_look(self,item):
-        pass
-
+        status = Game.Status.BAD_ITEM
+        if item in self.current_room.items: #the keys for the items
+            status= self.current_room.items[item]
+            
+        self.set_status(status)
+        
     def handle_take(self,grabbable):
-        pass
+        status = Game.Status.BAD_GRAB
+        if grabbable in self.current_room.grabbables:
+            self.inventory.append(grabbable)
+            self.current_room.delete_grabbable(grabbable)
+            status = Game.Status.GRABBED
 
+        self.set_status(status)
+        
     def handle_default(self):
         self.set_status(Game.Status.DEFAULT)
         self.clear_entry()
