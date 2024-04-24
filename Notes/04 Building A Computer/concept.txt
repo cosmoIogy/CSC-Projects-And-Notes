@@ -127,4 +127,26 @@ Idea - Flip the bits then add one to negate
 
     ASCII
     American Standard Code for Information Interchange
-        
+
+    Floating Point Notation:
+    Note: The one we cover in class is not IEEE 754
+
+    We do CSC 132 FPN
+
+    In decimal:
+    +3.0 x 10^8
+
+    + : sign
+    3.0 : mantissa
+    8: exponent
+    +3.0 : significand
+
+    Ex: The value 56.0 in 32-bit FPN
+
+    +/- | Exponent : 8-bit 2s Comp    | Mantissa : unsigned binary
+    _____________________________________________________________________________________________________
+    0   | 0000 | 0011                 | 000 | 0000 | 0000 | 0000 | 0000 | 0111
+
+    0 for +
+    1 for -
+    
