@@ -32,3 +32,99 @@ Idea - Flip the bits then add one to negate
     0000 0101 = 5
     1111 1010 #complement
     1111 1011 = -5 #add one
+
+    Ex: Represent -7 in 2s comp. (8 bits)
+
+    Sol: 
+    Start w/7
+    7 = 0000 0111
+    Complement = 1111 1000
+    Add 1 = 1111 1001 --> -7
+
+    Ex: Represent 10 in 8-bit 2s comp.
+
+    Sol:
+    0000 1010 --> 10
+
+    Ex: Convert 0001 0110 (an 8bit 2s comp value) to decimal
+
+    Sol:
+    1 0110
+    2^4 2^3 2^2 2^1 2^0
+    1   0   1   1   0
+
+    16 + 4 + 1 = 22
+
+    Ex: Convert 1001 0110 (an 8-bit 2s comp value) to decimal
+
+    Sol:
+    Original: 1001 0110
+    Complement = 0110 1001
+    Add 1 = 0110 1010
+
+    Convert to decimal :
+    1   1   0   1   0   1   0
+    2^6 2^5 2^4 2^3 2^2 2^1 2^0
+    64 + 32 + 0 + 8 + 0 + 2 + 0 = 106
+
+    Final: -106 (because it started as a negative number)
+
+    Signed Magnitude Notation:
+
+    0000 --> 0
+    1000 --> -0
+
+    Ones Complement:
+    0000 --> 0
+    1111 --> -0
+
+    Two Complement:
+    0000 --> 0
+    Complement : 1111
+    Add One : 10000 --> 0
+
+    Limits on Quantites:
+
+    With 4 bits:
+    Max value = (2^4-1)-1 = 2^3-1 = 7
+
+    Min Value = -2^4-1 = -2^3 = -8
+
+    With 8 bits:
+    Max value = (2^8-1)-1 = 2^7 - 1 = 127
+    Min Value = -2^8-1 = -2^7 = -128
+
+    Overflow occurs when you exceed the max or min value when performing operations
+
+    Ex: In 4-bit 2s comp. add +4 and +5
+
+    0100    +4
+   +0101    +5
+   ______   ___
+   1001      9
+
+    Ex: Add -4 and -5 in 4-bit 2s comp.
+
+    -4 is:
+
+    0100
+    1011 comp.
+    1100 add 1.
+
+    -5 is:
+
+    0101
+    1010 comp.
+    1011 add 1. 
+
+    1100
+    1011+
+    _____
+    10111 --> -9
+
+    Take away 1 since only 4 bits, so:
+    0111 --> 7
+
+    ASCII
+    American Standard Code for Information Interchange
+        
