@@ -149,4 +149,63 @@ Idea - Flip the bits then add one to negate
 
     0 for +
     1 for -
+
+    Ex: Convert the 32-bit FPN value to decimal
+
+    x | Exponent    | Mantissa
+    __________________________________________
+    1 | 1111 1110   | 0...011
+
+    Sol:
+    Sign is negative
+    Exponent is negative
+
+    For mantissa:
+    11 = 3
+    Because sign is negative:
+    Mantissa = -3
+
+    For the exponent:
+    Original : 1111 1110
+    Comp: 0000 0001
+    Add 1: 0000 0010
+
+    Magnitude --> 2
+    Exp --> -2
+
+    -3 * 2^-2 = -3/4
+
+    Ex: Convert 5.5625 to FPN
+
+    Sign is + --> 0
+    
+    Whole: 5
+    In binary : 101
+
+    Fractional: 0.5625
+    0.5625 * 2 = 1.125
+    0.125 * 2 = 0.25
+    0.25 * 2 = 0.5
+    0.5 * 2 = 1.0
+    In binary : 1001
+
+    Put Whole Binary and Fractional Binary Together : 101.1001
+    
+    Push the decimal to the right:
+    1011001.
+    4 Places
+    Exponent is -4
+    Mantissa: 1011001
+
+    For the exponent:
+    +4 : 0000 0100
+    Comp: 1111 1011
+    Add 1: 1111 1100 --> -4
+
+    Sol:
+
+    Sign | Exponent     | Mantissa
+    _____________________________________
+    0      1111 1100      0.01011001
+
     

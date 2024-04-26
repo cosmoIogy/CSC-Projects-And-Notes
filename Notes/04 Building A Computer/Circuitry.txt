@@ -1,0 +1,17 @@
+Decoders 
+-take a binary value and produce a single high line.
+
+Number of outputs :
+n to 2^n
+
+Encoders
+-take a high line and output the binary value that corresponds to that line
+
+Multiplexers
+-select an input to be the output
+
+Demultiplexers
+
+RS FlipFlops
+
+Clocked RS FlipFlops
