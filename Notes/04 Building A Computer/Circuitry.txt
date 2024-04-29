@@ -11,7 +11,18 @@ Multiplexers
 -select an input to be the output
 
 Demultiplexers
+-have a single input line. the selectors choose where that input line goes (i.e. which output line)
 
 RS FlipFlops
 
 Clocked RS FlipFlops
+
+CPU - Central Processing Unit
+
+Instructin Cycle for CPU:
+1. Fetch - gets the next instruction
+2. Increment the program counter by poiting to the next instruction
+3. Decode current instruction; identify OPerands and OP-code
+4. Execute the instruction
+5. Repeat
+
