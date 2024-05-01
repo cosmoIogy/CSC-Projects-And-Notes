@@ -2,8 +2,9 @@
 -signed magnitude notation
 -one comp
 -twos comp *
-    -conversions
 -CSC 132 FPN *
+    -conversions
+    
 -Decoders
 -Encoders
 -Multiplexers
@@ -14,4 +15,5 @@
     -Truth Tables
     -Interpretation
     -Draw RS Flip Flop Circuit
+
 -Instruction Cycle

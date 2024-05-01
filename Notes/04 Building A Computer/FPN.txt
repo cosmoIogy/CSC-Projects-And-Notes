@@ -81,7 +81,7 @@ Idea - Flip the bits then add one to negate
     Two Complement:
     0000 --> 0
     Complement : 1111
-    Add One : 10000 --> 0
+    Add One : 10000 --> -0
 
     Limits on Quantites:
 
@@ -161,7 +161,7 @@ Idea - Flip the bits then add one to negate
     Exponent is negative
 
     For mantissa:
-    11 = 3
+    0011 = 3
     Because sign is negative:
     Mantissa = -3
 
@@ -170,7 +170,7 @@ Idea - Flip the bits then add one to negate
     Comp: 0000 0001
     Add 1: 0000 0010
 
-    Magnitude --> 2
+    Signed Magnitude --> 2
     Exp --> -2
 
     -3 * 2^-2 = -3/4
@@ -206,6 +206,6 @@ Idea - Flip the bits then add one to negate
 
     Sign | Exponent     | Mantissa
     _____________________________________
-    0      1111 1100      0.01011001
+    0      1111 1100      0...01011001
 
     
