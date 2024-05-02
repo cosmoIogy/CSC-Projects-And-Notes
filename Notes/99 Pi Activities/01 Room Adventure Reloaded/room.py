@@ -1,5 +1,6 @@
-# Name: Joshua Coriell
-# Description: The Room Class
+########################################################
+# Brandon Fortes, Blair Borque, Adam Guillory
+########################################################
 
 class Room:
 
@@ -19,8 +20,11 @@ class Room:
         self.exits: dict[str,'Room'] = {} # key is the direction, value is Room 
         self.items: dict[str, str] = {} # key is the label, value is description
         self.grabbables = []
+        self.isLocked = False
 
-    def add_exit(self, location: str, room: 'Room | None') -> None:
+
+
+    def addExit(self, location: str, room: 'Room | None') -> None:
         """
         Adds an exit to the room.
 
@@ -30,13 +34,13 @@ class Room:
         """
         self.exits[location] = room
 
-    def add_item(self, label: str, description: str) -> None:
+    def addItem(self, label: str, description: str) -> None:
         self.items[label] = description
         
-    def add_grabbable(self, item: str) -> None:
-        self.grabbables.append(item)
+    def addGrabbable(self, grabbable, location):
+        self.grabbables.append([grabbable, location])
     
-    def delete_grabbable(self, item: str) -> None:
+    def deleteGrabbable(self, item: str) -> None:
         self.grabbables.remove(item)
 
     def __str__(self) -> str:
