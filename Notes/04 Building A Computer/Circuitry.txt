@@ -19,7 +19,7 @@ Clocked RS FlipFlops
 
 CPU - Central Processing Unit
 
-Instructin Cycle for CPU:
+Instruction Cycle for CPU:
 1. Fetch - gets the next instruction
 2. Increment the program counter by pointing to the next instruction
 3. Decode current instruction; identify OPerands and OP-code
