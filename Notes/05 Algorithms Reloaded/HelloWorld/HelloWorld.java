@@ -1,3 +1,4 @@
+package HelloWorld;
 class HelloWorld{
 
     //Public means it is accessible outside of the class
@@ -10,6 +11,9 @@ class HelloWorld{
     public static void main(String[] args){
         //println is print line
         //The double quotes are for strings
+        for (int i=0; i < args.length; i+=1){
+            System.out.println(args[i]);
+        }
         System.out.println("Hello World!");
     }
 }
