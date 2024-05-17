@@ -50,5 +50,48 @@ class Fraction {
         this.denominator = denominator;
         }
     }
+    private void reduce() {
+        int gcd = 1;
+        int min = Math.min(Math.abs(numerator),Math.abs(denominator));
+
+        for(int i = 2; i<=min; i++)
+            if (numerator % i == 0 && denominator % i == 0 ){
+                gcd = i;    
+            }
+
+        numerator = numerator / gcd;
+        denominator /= gcd;
+
+        if (numerator==0){
+            denominator = 1;
+        }
+    }
+
+    //float - a value represented in memory with 32 bits
+    //        uses IEEE 754 to represent the value
+    //double - a value reprsented in memory with 64 bits
+    //        uses IEEE 754 to represent the value
+    private double getReal(){
+        //casting is done using parentheses (type)
+        //all literal decimals in java are doubles
+        //float value = 6.789;
+        return (double) numerator / denominator;
+
+    }
+
+    public Fraction add(Fraction other){
+        Fraction sum = new Fraction();
+        sum.numerator = numerator * other.denominator + denominator * other.numerator;
+        sum.denominator = denominator * other.denominator;
+        sum.reduce();
+        return sum;
+    }
+    
+    //use toString() to similar to __str__ in python
+    public String toString(){
+        return numerator + "/" + denominator + " (" + getReal() + ")";
+    }
 
 }
+
+
