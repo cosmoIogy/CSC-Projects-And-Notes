@@ -203,7 +203,7 @@ public class RoomAdventure {
         String[] room4Items = {"tiny josh coriell", "fire"};
         String[] room4ItemDescriptions = {
             "It's Josh Coriell, but he is tiny.", 
-            "It is hot and fiery."
+            "It is hot and fiery. There is fire circling around it. You can snatch it."
         };
 
         String[] room4Grabbables = {"fire"};
