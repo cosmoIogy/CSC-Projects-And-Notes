@@ -1,5 +1,12 @@
 import java.util.Scanner;
 
+//Name : Blair Bourque
+//Description : Room Adventure
+//Improvements:
+//0. Added Room 4
+//1. Extra Room
+//2. Extra actions
+//3. A way to lose
 
 public class RoomAdventure {
 
@@ -22,8 +29,8 @@ public class RoomAdventure {
             System.out.println("\nWhat would you like to do? ");
 
             // take input
-            Scanner s = new Scanner(System.in);
-            String input = s.nextLine(); // wait here for input
+            Scanner scan = new Scanner(System.in);
+            String input = scan.nextLine(); // wait here for input
 
             // process input
             String[] words = input.split(" ");
@@ -95,7 +102,8 @@ public class RoomAdventure {
         Room room1 = new Room("Room 1");
         Room room2 = new Room("Room 2");
         Room room3 = new Room("Room 3");
-
+        Room room4 = new Room("Room 4");
+        Room room5 = new Room("Room 5");
 
         // Setup Room 1
         String[] room1ExitDirections = {"east", "south"};
@@ -117,8 +125,8 @@ public class RoomAdventure {
 
 
         // Setup Room 2
-        String[] room2ExitDirections = {"west"};
-        Room[] room2ExitDestinations = {room1};
+        String[] room2ExitDirections = {"west","south"};
+        Room[] room2ExitDestinations = {room1,room4};
 
         String[] room2Items = {"rug", "fireplace"};
         String[] room2ItemDescriptions = {
@@ -136,8 +144,8 @@ public class RoomAdventure {
 
 
         // Setup Room 3
-        String[] room3ExitDirections = {"north"};
-        Room[] room3ExitDestinations = {room1};
+        String[] room3ExitDirections = {"north","east"};
+        Room[] room3ExitDestinations = {room1,room4};
 
         String[] room3Items = {"statue", "bookshelf"};
         String[] room3ItemDescriptions = {
@@ -153,8 +161,45 @@ public class RoomAdventure {
         room3.setItemDescriptions(room3ItemDescriptions);
         room3.setGrabbables(room3Grabbables);
 
+        // Setup Room 4
+        String[] room4ExitDirections = {"north","west","south"};
+        Room[] room4ExitDestinations = {room1,room3,room5};
+     
+        String[] room4Items = {"tiny josh coriell", "fire"};
+        String[] room4ItemDescriptions = {
+            "It's Josh Coriell, but he is tiny.", 
+            "It is hot and firey"
+        };
+     
+        String[] room4Grabbables = {"fire"};
+     
+        room4.setExitDirections(room4ExitDirections);
+        room4.setExitDestinations(room4ExitDestinations);
+        room4.setItems(room4Items);
+        room4.setItemDescriptions(room4ItemDescriptions);
+        room4.setGrabbables(room4Grabbables);
+        
+        // Setup Room 5
+        String[] room5ExitDirections = {"north"};
+        Room[] room5ExitDestinations = {room4};
+     
+        String[] room5Items = {"brandon fortes", "adam guillory"};
+        String[] room5ItemDescriptions = {
+            "It's Brandon Fortes. He is clubbin.", 
+            "It is Adam Guillory. He is speaking words of nothingness."
+        };
+     
+        String[] room5Grabbables = {"Brandon Fortes","Adam Guillory"};
+     
+        room5.setExitDirections(room5ExitDirections);
+        room5.setExitDestinations(room5ExitDestinations);
+        room5.setItems(room5Items);
+        room5.setItemDescriptions(room5ItemDescriptions);
+        room5.setGrabbables(room5Grabbables);
+        
         currentRoom = room1;
     }
+
 
 
 }
