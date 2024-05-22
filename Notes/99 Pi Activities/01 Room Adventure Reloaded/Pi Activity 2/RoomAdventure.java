@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-//Name : Blair Bourque
-//Description : Room Adventure
-//Improvements:
-//0. Added Room 4
-//1. Extra Room
-//2. Extra actions
-//3. A way to lose
+// Name: Blair Bourque
+// Description: Room Adventure
+// Improvements:
+// 0. Added Room 4 and Room 5
+// 1. Extra Room; Room 5
+// 2. Extra actions; use and drop
+// 3. A way to lose; if fire is used, then you die
 
 public class RoomAdventure {
 
@@ -37,22 +37,29 @@ public class RoomAdventure {
 
             if (words.length != 2){
                 status = DEFAULT_STATUS;
-            }
+            } else {
+                String verb = words[0];
+                String noun = words[1];
 
-            String verb = words[0];
-            String noun = words[1];
-
-            switch (verb){
-                case "go":
-                    handleGo(noun);
-                    break;
-                case "look":
-                    handleLook(noun);
-                    break;
-                case "take":
-                    handleTake(noun);
-                    break;
-                default: status = DEFAULT_STATUS;
+                switch (verb){
+                    case "go":
+                        handleGo(noun);
+                        break;
+                    case "look":
+                        handleLook(noun);
+                        break;
+                    case "take":
+                        handleTake(noun);
+                        break;
+                    case "drop":
+                        handleDrop(noun);
+                        break;
+                    case "use":
+                        handleUse(noun);
+                        break;
+                    default: 
+                        status = DEFAULT_STATUS;
+                }
             }
 
             System.out.println(status);
@@ -67,6 +74,7 @@ public class RoomAdventure {
             if (noun.equals(exitDirections[i])){
                 currentRoom = exitDestinations[i];
                 status = "Changed Room.";
+                break;
             }
         }
     }
@@ -78,6 +86,7 @@ public class RoomAdventure {
         for (int i = 0; i < items.length; i++){
             if (noun.equals(items[i])){
                 status = itemDescriptions[i];
+                break;
             }
         }
     }
@@ -94,6 +103,34 @@ public class RoomAdventure {
                         break;
                     }
                 }
+                break;
+            }
+        }
+    }
+
+    private static void handleDrop(String noun){ // new action drop
+        status = "You don't have that item.";
+        for (int i = 0; i < inventory.length; i++){
+            if (inventory[i] != null && inventory[i].equals(noun)){
+                inventory[i] = null;
+                status = "Dropped " + noun;
+                break;
+            }
+        }
+    }
+
+    private static void handleUse(String noun){ // new action use
+        status = "You can't use that.";
+        for (int i = 0; i < inventory.length; i++){
+            if (inventory[i] != null && inventory[i].equals(noun)){
+                if (noun.equals("fire") && currentRoom.getName().equals("Room 4")){ // if fire is used then you die
+                    status = "You burned yourself. Game Over.";
+                    System.out.println(status);
+                    System.exit(0);
+                } else {
+                    status = "Used " + noun;
+                }
+                break;
             }
         }
     }
@@ -123,10 +160,9 @@ public class RoomAdventure {
         room1.setItemDescriptions(room1ItemDescriptions);
         room1.setGrabbables(room1Grabbables);
 
-
         // Setup Room 2
-        String[] room2ExitDirections = {"west","south"};
-        Room[] room2ExitDestinations = {room1,room4};
+        String[] room2ExitDirections = {"west", "south"};
+        Room[] room2ExitDestinations = {room1, room4};
 
         String[] room2Items = {"rug", "fireplace"};
         String[] room2ItemDescriptions = {
@@ -142,14 +178,13 @@ public class RoomAdventure {
         room2.setItemDescriptions(room2ItemDescriptions);
         room2.setGrabbables(room2Grabbables);
 
-
         // Setup Room 3
-        String[] room3ExitDirections = {"north","east"};
-        Room[] room3ExitDestinations = {room1,room4};
+        String[] room3ExitDirections = {"north", "east"};
+        Room[] room3ExitDestinations = {room1, room4};
 
         String[] room3Items = {"statue", "bookshelf"};
         String[] room3ItemDescriptions = {
-            "It's the lady of the mist. A full sized replica.", 
+            "It's the lady of the mist. A full-sized replica.", 
             "There is one book on it."
         };
 
@@ -162,49 +197,46 @@ public class RoomAdventure {
         room3.setGrabbables(room3Grabbables);
 
         // Setup Room 4
-        String[] room4ExitDirections = {"north","west","south"};
-        Room[] room4ExitDestinations = {room1,room3,room5};
-     
+        String[] room4ExitDirections = {"north", "west", "south"};
+        Room[] room4ExitDestinations = {room2, room3, room5};
+
         String[] room4Items = {"tiny josh coriell", "fire"};
         String[] room4ItemDescriptions = {
             "It's Josh Coriell, but he is tiny.", 
-            "It is hot and firey"
+            "It is hot and fiery."
         };
-     
+
         String[] room4Grabbables = {"fire"};
-     
+
         room4.setExitDirections(room4ExitDirections);
         room4.setExitDestinations(room4ExitDestinations);
         room4.setItems(room4Items);
         room4.setItemDescriptions(room4ItemDescriptions);
         room4.setGrabbables(room4Grabbables);
-        
+
         // Setup Room 5
         String[] room5ExitDirections = {"north"};
         Room[] room5ExitDestinations = {room4};
-     
+
         String[] room5Items = {"brandon fortes", "adam guillory"};
         String[] room5ItemDescriptions = {
-            "It's Brandon Fortes. He is clubbin.", 
+            "It's Brandon Fortes. He is clubbin'.", 
             "It is Adam Guillory. He is speaking words of nothingness."
         };
-     
-        String[] room5Grabbables = {"Brandon Fortes","Adam Guillory"};
-     
+
+        String[] room5Grabbables = {"Brandon Fortes", "Adam Guillory"};
+
         room5.setExitDirections(room5ExitDirections);
         room5.setExitDestinations(room5ExitDestinations);
         room5.setItems(room5Items);
         room5.setItemDescriptions(room5ItemDescriptions);
         room5.setGrabbables(room5Grabbables);
-        
+
         currentRoom = room1;
     }
-
-
-
 }
 
-class Room{
+class Room {
 
     private String name;
     private String[] exitDirections; // north, south, east, west
@@ -217,7 +249,10 @@ class Room{
         this.name = name;
     }
     
-    //1. Getters and Setters for ExitDirections
+    public String getName() {
+        return name;
+    }
+
     public void setExitDirections(String[] exitDirections){
         this.exitDirections = exitDirections;
     }
@@ -225,7 +260,7 @@ class Room{
     public String[] getExitDirections(){
         return this.exitDirections;
     }
-    //2. Getters and Setters for ExitDestinations
+
     public void setExitDestinations(Room[] exitDestinations){
         this.exitDestinations = exitDestinations;
     }
@@ -233,7 +268,7 @@ class Room{
     public Room[] getExitDestinations(){
         return exitDestinations;
     }
-    //3. Getters and Setters for items
+
     public void setItems(String[] items){
         this.items = items;
     }
@@ -241,7 +276,7 @@ class Room{
     public String[] getItems(){
         return items;
     }
-    //4. Getters and Setters for ItemDescriptions
+
     public void setItemDescriptions(String[] itemDescriptions){
         this.itemDescriptions = itemDescriptions;
     }
@@ -249,7 +284,7 @@ class Room{
     public String[] getItemDescriptions(){
         return itemDescriptions;
     }
-    //5 . Getters and Setters for Grabbables
+
     public void setGrabbables(String[] grabbables){
         this.grabbables = grabbables;
     }
@@ -257,7 +292,6 @@ class Room{
     public String[] getGrabbables(){
         return grabbables;
     }
-
 
     public String toString(){
         String result = "\n";
@@ -277,5 +311,4 @@ class Room{
 
         return result;
     }
-
 }
