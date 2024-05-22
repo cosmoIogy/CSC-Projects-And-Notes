@@ -1,0 +1,14 @@
+Conversions
+    while > for
+    for > while
+    python > java
+        classes
+        anything
+
+order of execution
+conceptual stuff
+    JDK
+    > compiler (complies into java bytecode)
+    > JVM (java virtual machine)
+
+
