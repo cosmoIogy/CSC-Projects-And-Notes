@@ -5,6 +5,8 @@
 #               a spider
 #####################################################################
 
+# you will find the images outside of the program 4 file
+
 #Import constants file
 from Constants import *
 # Import the pygame module
