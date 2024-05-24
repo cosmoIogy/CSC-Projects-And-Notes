@@ -1,4 +1,4 @@
-#####################################################################
+ #####################################################################
 # author:       Blair Bourque
 # date:         16th March, 2024
 # description:  a game where you will control a wizard and shoot at
@@ -16,7 +16,7 @@ import random
 # Instead of a surface, we use an image for a better looking sprite
 # Define the Player object extending pygame.sprite.Sprite
 # Instead of a surface, we use an image for a better looking sprite
-class Player(pygame.sprite.Sprite):
+class Player(pygame.sprite.Sprite): 
     def __init__(self):
         super(Player, self).__init__()
         self.surf = pygame.image.load("wizard.png").convert_alpha()
