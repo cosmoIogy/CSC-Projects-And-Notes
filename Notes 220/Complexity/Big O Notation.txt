@@ -1,0 +1,12 @@
+Constant O(1)
+-doesnt change
+-a constant runtime
+-think cleaning house for dinner party
+
+Linear O(n)
+-a gradual change in runtime
+-think passing around food for dinner party
+
+Quadratic O(n^2)
+-image everyone at the dinner party giving everyone a hug
+
