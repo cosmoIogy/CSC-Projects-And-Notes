@@ -21,13 +21,27 @@ public static boolean[][] playGame(boolean[][] old){
             }
         }
     }
+    return noob;
+}
+
+//a function to ocunt the number of neighbors around a specific row r and column c in the 2D array og
+public static int countNeighbors(boolean[][] og, int r, int c){
+    int neigh = 0;
+    for (int i = -1; i < 2; i++){
+        for (int j = -1; j < 2; j++){
+            if (og[r+i][c+j] && (i == 0) && (j == 0))
+                neigh++;
+        }
+    }
+    return neigh;
 }
 
 
 public static void printBoard(boolean[][] brd){
     for(int row = 0; row < brd.length; row++){
         for (int col = 0; col < brd[row].length; col++){
-            System.out.println(brd[row][col] + ", ");
+            System.out.println(brd[row][col] ? "*" : " ");
+            //System.out.println(brd[row][col] + ", "); 
         }
         System.out.println();
     }

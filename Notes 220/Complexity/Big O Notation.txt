@@ -8,5 +8,5 @@ Linear O(n)
 -think passing around food for dinner party
 
 Quadratic O(n^2)
--image everyone at the dinner party giving everyone a hug
+-imagine everyone at the dinner party giving everyone a hug
 
