@@ -25,16 +25,12 @@ class List
 
 	// copy constructor
 	// clones the list l and sets the last element as the current
-	public List(List l)
-	{
+	public List(List l) {
 		curr = end = -1;
-		list = new char [MAX_SIZE];
+		list = new char[MAX_SIZE];
 
-		for(char c : l.list){
-			InsertAfter(c);
-
-		//for (int i = 0; i < l.GetSize(); i++){
-			//InsertAfter(l.list[i]);
+		for (int i = 0; i < l.GetSize(); i++) {
+			InsertAfter(l.list[i]);
 		}
 	}
 	
@@ -42,12 +38,18 @@ class List
 	// navigates to the beginning of the list
 	public void First()
 	{
+		if(!IsEmpty()){
+			curr = 0;
+		}
 	}
 
 	// navigates to the end of the list
 	// the end of the list is at the last valid item in the list
 	public void Last()
 	{
+		if(IsEmpty()){
+			curr = end;
+		}
 	}
 
 	// navigates to the specified element (0-index)
@@ -55,6 +57,11 @@ class List
 	// this should not be possible for invalid positions
 	public void SetPos(int pos)
 	{
+		if(!IsEmpty()){
+			if(pos >= 0 && pos <= end){
+			curr = pos;
+			}
+		}
 	}
 
 	// navigates to the previous element
@@ -62,6 +69,9 @@ class List
 	// there should be no wrap-around
 	public void Prev()
 	{
+		if (!IsEmpty() && curr > 0){
+			curr--;
+		}
 	}
 
 	// navigates to the next element
@@ -85,7 +95,12 @@ class List
 	// returns the value of the current element (or -1)
 	public char GetValue()
 	{
-		return '\0';
+		if(!IsEmpty()){
+			return list[curr];
+		}
+		else{
+			return '\0';
+		}
 	}
 
 	// returns the size of the list
@@ -141,12 +156,25 @@ class List
 	// this should not be possible for an empty list
 	public void Remove()
 	{
+		if (!IsEmpty()){
+			for (int i = curr; i < end; i++){
+				list[i] = list[i+1];
+			}
+			end--;
+
+			//if curr is after end after removing
+			if(curr > end){
+				curr = end;
+			}
+		}
 	}
 
 	// replaces the value of the current element with the specified value
 	// this should not be possible for an empty list
-	public void Replace(char data)
-	{
+	public void Replace(char data) {
+		if (!IsEmpty()) {
+			list[curr] = data;
+		}
 	}
 
 	// returns if the list is empty
@@ -162,9 +190,16 @@ class List
 	}
 
 	// returns if two lists are equal (by value)
-	public boolean Equals(List l)
-	{
-		return false;
+	public boolean Equals(List l) {
+		if (l.GetSize() != this.GetSize()) {
+			return false;
+		}
+		for (int i = 0; i < GetSize(); i++) {
+			if (l.list[i] != this.list[i]) {
+				return false;
+			}
+		} 
+		return true;
 	}
 
 	// returns the concatenation of two lists
@@ -172,9 +207,12 @@ class List
 	// l should be concatenated to the end of *this
 	// the returned list should not exceed MAX_SIZE elements
 	// the last element of the new list is the current
-	public List Add(List l)
-	{
-		return null;
+	public List Add(List l) {
+		List result = new List(this);
+		for (int i = 0; i < l.GetSize(); i++) {
+			result.InsertAfter(l.list[i]);
+		}
+		return result;
 	}
 
 	// returns a string representation of the entire list (e.g., 1 2 3 4 5)
