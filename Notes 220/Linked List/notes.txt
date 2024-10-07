@@ -1,0 +1,5 @@
+Linked List is consisted of:
+Data $ Node
+
+The data type of Data is whatever the data type of whatever is stored in it
+The data type of the node is another node, since the address of another node is what is stored in it
