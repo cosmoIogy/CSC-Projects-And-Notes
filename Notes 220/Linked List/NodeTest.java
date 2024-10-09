@@ -10,7 +10,7 @@ class NodeTest {
         p.setData(10);
         
         //set the link portion of the n node to p thereby linking them
-        p.setLink(p);
+        n.setLink(p);
 
         //change the data portion of the second node
         p.setData(15);
