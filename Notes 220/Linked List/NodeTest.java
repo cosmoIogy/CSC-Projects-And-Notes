@@ -3,14 +3,9 @@ class NodeTest {
 
         int[] values = {1,2,3,4,5,6,7,8,9};
         
-<<<<<<< HEAD
-        //set the link portion of the n node to p thereby linking them
-        n.setLink(p);
-=======
         Node head = buildBackwards(values);
     
-        }
->>>>>>> 2e6abfe33f653cecf968065d50c96ed62b184f90
+        
 
         // curr = new Node();
 
@@ -36,7 +31,9 @@ class NodeTest {
         // p.getLink().setData(100);
 
         //print the linked list
-        printList(head)
+        printList(head);
+
+    }
 
     public static Node buildBackwards(int[] array){
         Node head = null, curr;
@@ -49,9 +46,8 @@ class NodeTest {
             head = curr;
 
             count--;
+        }
     }
-    }
-
 
     public static void printList(Node temp){
         while (temp != null){

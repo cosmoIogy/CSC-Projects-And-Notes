@@ -12,6 +12,7 @@ public class LinkedListWorksheet {
     }
     
     public static void printList(Node temp){
+        temp = head;
         while (temp != null){
             System.out.print(temp);
             temp = temp.getLink();
