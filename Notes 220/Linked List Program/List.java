@@ -56,7 +56,7 @@ public class List
 	// remember that an empty list has a "size" of 0 and its "position" is at -1
 	public List()
 	{
-		curr = end = -1;
+		curr = head = -1;
 		list = new char[MAX_SIZE];
 	}
 
@@ -68,7 +68,7 @@ public class List
 		list = new char[MAX_SIZE];
 
 		for (int i = 0; i < l.GetSize(); i++) {
-			InsertAfter(l.list[i]);
+			InsertAfter(l.num_items[i]);
 		}
 	}
 
