@@ -3,9 +3,7 @@ class NodeTest {
 
         int[] values = {1,2,3,4,5,6,7,8,9};
         
-        Node head = buildBackwards(values);
-    
-        
+        Node head = buildBackwards(values);        
 
         // curr = new Node();
 
@@ -31,13 +29,14 @@ class NodeTest {
         // p.getLink().setData(100);
 
         //print the linked list
-        printList(head);
+        //printList(head);
+        printRList(head);
 
     }
 
-    public static Node buildBackwards(int[] array){
+    public static Node buildBackwards(int[] values){
         Node head = null, curr;
-        int count = array.length;
+        int count = values.length;
 
         while(count > 0){
             curr = new Node();
@@ -47,6 +46,7 @@ class NodeTest {
 
             count--;
         }
+        return head;
     }
 
     public static void printList(Node temp){
@@ -55,5 +55,16 @@ class NodeTest {
             temp = temp.getLink();
         }
         System.out.println();
+    }
+
+    public static void printRList(Node temp){
+        //base case
+        if (temp == null){
+            System.out.println();
+        }
+
+        //general case
+        System.out.print(temp.getData() + "-->");
+        printRList(temp.getLink());
     }
 }
