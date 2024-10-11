@@ -1,9 +1,10 @@
 /* ***************************************************
- * Blair Bourque
- * 10/7/24
- * List.java
+ * <your name> Blair Bourque
+ * <the date> October 8, 2024
+ * <the file name> List.java
  *
- * A List class that has methods to build a linked list
+ * <a simple, short program/class description>
+ * My implementation of linked list
  *************************************************** */
 
 // the Node class
@@ -52,41 +53,49 @@ public class List
 	private Node curr;
 	private int num_items;
 
+	private Node tempNode;
+	private int tempInt;
+
 	// constructor
 	// remember that an empty list has a "size" of 0 and its "position" is at -1
 	public List()
 	{
-		curr = head = -1;
-		list = new char[MAX_SIZE];
+		head = new Node();
+		tail = new Node();
+		curr = new Node();
+		tempNode = new Node();
+		num_items = 0;
 	}
 
 	// copy constructor
 	// clones the list l and sets the last element as the current
 	public List(List l)
 	{
-		curr = end = -1;
-		list = new char[MAX_SIZE];
-
-		for (int i = 0; i < l.GetSize(); i++) {
-			InsertAfter(l.num_items[i]);
-		}
+		head = new Node();
+        tail = new Node();
+        curr = new Node();
+        tempNode = new Node();
+        num_items = 0;
+        Node current = l.head;
+        while (current != null && num_items < MAX_SIZE) 
+        {
+            InsertAfter(current.getData());
+            current = current.getLink();
+        }
+        Last();
 	}
 
 	// navigates to the beginning of the list
 	public void First()
 	{
-		if(!IsEmpty()){
-			curr = head;
-		}
+		curr = head;
 	}
 
 	// navigates to the end of the list
 	// the end of the list is at the last valid item in the list
 	public void Last()
 	{
-		if(IsEmpty()){
-			curr = tail;
-		}
+		curr = tail;
 	}
 
 	// navigates to the specified element (0-index)
@@ -94,10 +103,18 @@ public class List
 	// this should not be possible for invalid positions
 	public void SetPos(int pos)
 	{
-		if(!IsEmpty()){
-			if(pos >= 0 && pos <= end){
-			curr = pos;
-			}
+		if(!IsEmpty())
+		{
+			if ((pos <= num_items) && (pos >= 0))
+				curr = head;
+				for (int i = 0; i < pos; i++)
+				{
+					curr = curr.getLink();
+				}
+		}
+		else 
+		{
+			return;
 		}
 	}
 
@@ -106,45 +123,67 @@ public class List
 	// there should be no wrap-around
 	public void Prev()
 	{
-		if (!IsEmpty() && curr > 0){
-			curr--;
+		if (IsEmpty() || curr == head) {
+			// No previous node if the list is empty or we're at the head
+			return;
 		}
-	}
 
+		tempNode = head;
+		if (!IsEmpty())
+			{
+				while (tempNode.getLink() != null && tempNode.getLink() != curr)
+					tempNode = tempNode.getLink();
+				curr = tempNode;
+			}
+	}
+	
 	// navigates to the next element
 	// this should not be possible for an empty list
 	// there should be no wrap-around
 	public void Next()
 	{
-		if (!IsEmpty()){
-			if(curr < end){
-				curr++;
-			}
-		}
+		if(curr != null)
+			curr = curr.getLink();
 	}
 
 	// returns the location of the current element (or -1)
 	public int GetPos()
 	{
-		return curr;
+		if (curr == null) {
+			return -1;  // If the current node is null, return -1
+		}
+
+		tempInt = 0;
+		tempNode = head;  // Start at the head of the list
+		
+		// Traverse through the list to find the position of curr
+		while (tempNode != null && tempNode != curr) {
+			tempNode = tempNode.getLink();
+			tempInt++;
+		}
+	
+		// If we’ve traversed the whole list and didn’t find curr, return -1
+		if (tempNode == null) {
+			return -1;
+		}
+	
+		return tempInt;
 	}
 
 	// returns the value of the current element (or -1)
 	public int GetValue()
 	{
-		if(!IsEmpty()){
-			return list[curr];
-		}
-		else{
-			return '\0';
-		}
+		if (curr == null )
+			return -1;
+		else
+			return curr.getData();
 	}
 
 	// returns the size of the list
 	// size does not imply capacity
 	public int GetSize()
 	{
-		return end+1;
+		return(num_items);
 	}
 
 	// inserts an item before the current element
@@ -152,93 +191,151 @@ public class List
 	// this should not be possible for a full list
 	public void InsertBefore(int data)
 	{
-		if (!IsFull()){
-			if (IsEmpty()){
-				list[0] = data;
-				end++;
-				curr++;
+		if (!IsFull())
+		{
+			// Create a new node for insertion
+			tempNode = new Node();
+			tempNode.setData(data);
+	
+			// If the list is empty, simply insert at the head
+			if (IsEmpty())
+			{
+				tempNode.setLink(null);  // New node will have no link, it's the only element
+				head = tempNode;
+				tail = tempNode;  // Since there's only one node, it is both head and tail
 			}
-			else{
-				for(int i = end; i >= curr; i--){
-					list[i+1] = list[i];
+			else if (curr == head)
+			{
+				// If inserting before the head, adjust the head pointer
+				tempNode.setLink(head);
+				head = tempNode;
+			}
+			else
+			{
+				// Find the previous node and insert the new node before the current node
+				Node prev = head;
+				while (prev.getLink() != curr)
+				{
+					prev = prev.getLink();
 				}
-				list[curr] = data;
-				end++;
+				prev.setLink(tempNode);
+				tempNode.setLink(curr);
 			}
+			
+			num_items++;
+			curr = tempNode;  // The new node becomes the current node
 		}
 	}
 
 	// inserts an item after the current element
 	// the new element becomes the current
 	// this should not be possible for a full list
-	public void InsertAfter(int data)
-	{
-		if(!IsFull()){
-			if (IsEmpty()){
-				InsertBefore(data);
-			}
-			else if (curr == end){
-				curr++;
-				end++;
-				list[curr] = data;
-				}
-			else{
-				Next();
-				InsertBefore(data);
-				}
-			}
+	public void InsertAfter(int data){
+	if (!IsFull())
+    {
+        // Create a new node for insertion
+        tempNode = new Node();
+        tempNode.setData(data);
+
+        // If the list is empty, insert as the head and tail
+        if (IsEmpty())
+        {
+            head = tempNode;
+            tail = tempNode;  // Since there's only one node, it's both head and tail
+        }
+        else if (curr == tail)
+        {
+            // If inserting after the tail, adjust the tail pointer
+            tail.setLink(tempNode);
+            tail = tempNode;
+        }
+        else
+        {
+            // Insert the new node after the current node
+            tempNode.setLink(curr.getLink());
+            curr.setLink(tempNode);
+        }
+
+        num_items++;
+        curr = tempNode;  // The new node becomes the current node
+		}
 	}
+
+
 
 	// removes the current element (collapsing the list)
 	// this should not be possible for an empty list. If possible,
 	// following element becomes new current element.
 	public void Remove()
 	{
-		if (!IsEmpty()){
-			for (int i = curr; i < end; i++){
-				list[i] = list[i+1];
-			}
-			end--;
+		if (curr != null) 
+        {
+            if (curr == head) 
+            {
+                head = head.getLink();
+                if (head == null) 
+                {
+                    tail = null;
+                }
+                curr = head;
+            } 
+            else 
+            {
+                Node prevNode = head;
+                while (prevNode != null && prevNode.getLink() != curr) 
+                {
+                    prevNode = prevNode.getLink();
+                }
 
-			//if curr is after end after removing
-			if(curr > end){
-				curr = end;
-			}
-		}
+                if (prevNode != null) 
+                {
+                    prevNode.setLink(curr.getLink());
+                    if (curr == tail) 
+                    {
+                        tail = prevNode;
+                    }
+            curr = prevNode.getLink();
+                }
+            }
+            num_items--;
+        }
 	}
 
 	// replaces the value of the current element with the specified value
 	// this should not be possible for an empty list
 	public void Replace(int data)
 	{
-		if (!IsEmpty()) {
-			list[curr] = data;
-		}
+		if (!IsEmpty())
+			curr.setData(data);
 	}
 
 	// returns if the list is empty
 	public boolean IsEmpty()
 	{
-		return (this.end == -1);
+		return (num_items == 0);
 	}
 
 	// returns if the list is full
 	public boolean IsFull()
 	{
-		return (this.end >= MAX_SIZE - 1);
+		return (num_items >= MAX_SIZE);
 	}
 
 	// returns if two lists are equal (by value)
 	public boolean Equals(List l)
 	{
-		if (l.GetSize() != this.GetSize()) {
+		if (this.GetSize() != l.GetSize())
 			return false;
-		}
-		for (int i = 0; i < GetSize(); i++) {
-			if (l.list[i] != this.list[i]) {
+		tempNode = head;
+		l.tempNode = l.head;
+		while (head != null)
+		{
+			if (head.getData() != l.head.getData())
 				return false;
-			}
-		} 
+		}
+		tempNode = tempNode.getLink();
+		l.tempNode = l.tempNode.getLink();
+
 		return true;
 	}
 
@@ -249,10 +346,15 @@ public class List
 	// the last element of the new list is the current
 	public List Add(List l)
 	{
+		// Start by making the result a copy of "this"
 		List result = new List(this);
-		for (int i = 0; i < l.GetSize(); i++) {
-			result.InsertAfter(l.list[i]);
+		tempNode = l.head;
+		while (tempNode != null && result.num_items < MAX_SIZE)
+		{
+			result.InsertAfter(tempNode.getData());
+			tempNode = tempNode.getLink();
 		}
+		// return result
 		return result;
 	}
 
@@ -260,16 +362,14 @@ public class List
 	// the string "NULL" should be returned for an empty list
 	public String toString()
 	{
-		if (IsEmpty()){
+		if (IsEmpty())
 			return "NULL";
-			}
-			else{
-				String result = "";
-				for (int i = 0; i <= end; i++){
-					result += list[i]+" ";
-				}
-				return result;
-			}
+		String result = "";
+        Node current = head;
+        while (current != null) {
+            result += current.getData() + " ";
+            current = current.getLink();
+        }
+        return result.trim();
 	}
 }
-
