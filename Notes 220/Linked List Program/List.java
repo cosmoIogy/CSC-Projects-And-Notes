@@ -56,7 +56,9 @@ public class List
 	// remember that an empty list has a "size" of 0 and its "position" is at -1
 	public List()
 	{
-		curr = head = -1;
+		curr = head;
+		head = null;
+		tail = head;
 		list = new char[MAX_SIZE];
 	}
 
