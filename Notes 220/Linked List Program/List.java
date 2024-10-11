@@ -133,10 +133,10 @@ public class List
 	public int GetValue()
 	{
 		if(!IsEmpty()){
-			return list[curr];
+			return curr.getData();
 		}
 		else{
-			return '\0';
+			return -1;
 		}
 	}
 
