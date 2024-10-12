@@ -3,7 +3,7 @@
  * 9/23/24
  * ListTemplate
  *
- * <a simple, short program/class description>
+ * A list of chars
  *************************************************** */
 
 // the EasyList class

@@ -3,7 +3,7 @@
  * 10/1/24
  * ListTemplate
  *
- * A program that consists of functions to allow the main function to run
+ * A program that bilds a list of ints; consists of functions to allow the main function to run
  *************************************************** */
 
  // the EasyList class

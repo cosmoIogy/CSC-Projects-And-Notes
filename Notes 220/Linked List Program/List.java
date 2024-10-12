@@ -112,31 +112,28 @@ public class List
 					curr = curr.getLink();
 				}
 		}
-		else 
-		{
-			return;
-		}
 	}
 
-	// navigates to the previous element
-	// this should not be possible for an empty list
-	// there should be no wrap-around
-	public void Prev()
-	{
-		if (IsEmpty() || curr == head) {
-			// No previous node if the list is empty or we're at the head
-			return;
-		}
+	// Navigates to the previous element
+	// This should not be possible for an empty list
+	// There should be no wrap-around
+	public void Prev() {
+    if (IsEmpty() || curr == head) {
+        // No previous node if the list is empty or we're at the head
+        return;
+    }
 
-		tempNode = head;
-		if (!IsEmpty())
-			{
-				while (tempNode.getLink() != null && tempNode.getLink() != curr)
-					tempNode = tempNode.getLink();
-				curr = tempNode;
-			}
-	}
-	
+    Node prevNode = head;
+
+    // Find the node just before the current one
+    while (prevNode.getLink() != curr) {
+        prevNode = prevNode.getLink();
+    }
+
+    // Set curr to the previous node
+    curr = prevNode;
+}
+
 	// navigates to the next element
 	// this should not be possible for an empty list
 	// there should be no wrap-around
@@ -263,43 +260,57 @@ public class List
 
 
 
-	// removes the current element (collapsing the list)
-	// this should not be possible for an empty list. If possible,
-	// following element becomes new current element.
-	public void Remove()
-	{
-		if (curr != null) 
-        {
-            if (curr == head) 
-            {
-                head = head.getLink();
-                if (head == null) 
-                {
-                    tail = null;
-                }
-                curr = head;
-            } 
-            else 
-            {
-                Node prevNode = head;
-                while (prevNode != null && prevNode.getLink() != curr) 
-                {
-                    prevNode = prevNode.getLink();
-                }
+	// Removes the current element (collapsing the list)
+	// This should not be possible for an empty list. If possible,
+	// the following element becomes the new current element.
+	public void Remove() {
+    if (IsEmpty() || curr == null) {
+        // Cannot remove from an empty list or if current is null
+        return;
+    }
 
-                if (prevNode != null) 
-                {
-                    prevNode.setLink(curr.getLink());
-                    if (curr == tail) 
-                    {
-                        tail = prevNode;
-                    }
-            curr = prevNode.getLink();
-                }
-            }
-            num_items--;
+    // If removing the head
+    if (curr == head) {
+        head = head.getLink();  // Move head to the next element
+        if (head == null) {
+            // If the head becomes null, the list is empty
+            tail = null;
         }
-	}
+        curr = head;  // Set current to the new head
+    } 
+
+    // If removing any other node
+    else {
+        Node prevNode = head;
+        // Find the node right before current
+        while (prevNode.getLink() != curr) {
+            prevNode = prevNode.getLink();
+        }
+
+        // Bypass the current node
+        prevNode.setLink(curr.getLink());
+
+        // If removing the tail node, update tail reference
+        if (curr == tail) {
+            tail = prevNode;
+        }
+
+		// Move curr to the next node after the removed one
+		curr = prevNode.getLink();
+
+    }
+
+    // Decrement the size of the list
+    num_items--;
+
+    // If the list is now empty, reset head, tail, and curr
+    if (num_items == 0) {
+        head = null;
+        tail = null;
+        curr = null;
+    }
+}
+
 
 	// replaces the value of the current element with the specified value
 	// this should not be possible for an empty list
@@ -321,23 +332,38 @@ public class List
 		return (num_items >= MAX_SIZE);
 	}
 
-	// returns if two lists are equal (by value)
-	public boolean Equals(List l)
-	{
-		if (this.GetSize() != l.GetSize())
-			return false;
-		tempNode = head;
-		l.tempNode = l.head;
-		while (head != null)
-		{
-			if (head.getData() != l.head.getData())
-				return false;
-		}
-		tempNode = tempNode.getLink();
-		l.tempNode = l.tempNode.getLink();
+	// Returns true if two lists are equal (by value)
+	public boolean Equals(List l) {
+    // Check for null references
+    if (l == null) {
+        return false;  // If the list to compare is null, they are not equal
+    }
+    
+    // Check for size equality
+    if (this.GetSize() != l.GetSize()) {
+        return false;  // Lists of different sizes cannot be equal
+    }
 
-		return true;
-	}
+    Node tempNode = head;         // Start at the head of the first list
+    Node tempNode2 = l.head;      // Start at the head of the second list
+
+    // Traverse both lists simultaneously
+    while (tempNode != null) {    // Loop until the end of the first list
+        
+		// Check if the current nodes' data are equal
+        if (tempNode.getData() != (tempNode2.getData())) {
+            return false;          // If data is not equal, return false
+        }
+
+        // Move to the next node in both lists
+        tempNode = tempNode.getLink();
+        tempNode2 = tempNode2.getLink();
+    }
+
+    return true;                  // All elements are equal if we reach this point
+}
+
+
 
 	// returns the concatenation of two lists
 	// l should not be modified
