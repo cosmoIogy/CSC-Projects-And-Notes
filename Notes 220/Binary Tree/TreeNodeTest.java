@@ -5,7 +5,7 @@ public class TreeNodeTest{
 
         //create the left subtree
         root.setLeft(new BinaryTreeNode ('B'));
-        root.getLeft().setRight(new BinaryTreeNode('E'));
+        root.getLeft().setLeft(new BinaryTreeNode('E'));
         root.getLeft().getLeft().setRight(new BinaryTreeNode('G'));
 
         //create the right subtree
@@ -24,10 +24,10 @@ public static void inOrder(BinaryTreeNode node){
     if(node == null){
         return;
     }
-    //inOrder(node.getLeft());
+    inOrder(node.getLeft());
     //processing is printing
     System.out.print(node);
-    //inOrder(node.getRight());
+    inOrder(node.getRight());
 }
 
 public static void preOrder(BinaryTreeNode root){
@@ -37,8 +37,8 @@ public static void preOrder(BinaryTreeNode root){
     }
 
     System.out.print(root);
-    //inOrder(temp.getLeft());
-    //inOrder(temp.getRight());
+    inOrder(root.getLeft());
+    inOrder(root.getRight());
 }
 
 public static void postOrder(BinaryTreeNode temp){
@@ -47,8 +47,8 @@ public static void postOrder(BinaryTreeNode temp){
         return;
     }
 
-    //inOrder(temp.getLeft());
-    //inOrder(temp.getRight());
+    inOrder(temp.getLeft());
+    inOrder(temp.getRight());
     System.out.print(temp);
     }
 }

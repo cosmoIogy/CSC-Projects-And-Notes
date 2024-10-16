@@ -39,6 +39,6 @@ public class BinaryTreeNode {
     }
 
     public String toString(){
-        return "" + this.data;
+        return " " + this.data;
     }
 }
