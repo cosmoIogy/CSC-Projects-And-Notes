@@ -32,8 +32,16 @@ public class Node {
         return "" + this.data + "-->";
     }
 
+    public void setRight(BinaryTreeNode binaryTreeNode) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setRight'");
+    }
+
+    public BinaryTreeNode getLeft() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getLeft'");
+    }
+
 
 
 }
-
-

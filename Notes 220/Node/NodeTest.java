@@ -3,7 +3,7 @@ class NodeTest {
 
         int[] values = {1,2,3,4,5,6,7,8,9};
         
-        Node head = buildBackwards(values);        
+        BinaryTreeNode head = buildBackwards(values);        
 
         // curr = new Node();
 
@@ -34,12 +34,12 @@ class NodeTest {
 
     }
 
-    public static Node buildBackwards(int[] values){
-        Node head = null, curr;
+    public static BinaryTreeNode buildBackwards(int[] values){
+        BinaryTreeNode head = null, curr;
         int count = values.length;
 
         while(count > 0){
-            curr = new Node();
+            curr = new BinaryTreeNode();
             curr.setData(values[count - 1]);
             curr.setLink(head);
             head = curr;
@@ -49,7 +49,7 @@ class NodeTest {
         return head;
     }
 
-    public static void printList(Node temp){
+    public static void printList(BinaryTreeNode temp){
         while (temp != null){
             System.out.print(temp);
             temp = temp.getLink();
@@ -57,7 +57,7 @@ class NodeTest {
         System.out.println();
     }
 
-    public static void printRList(Node temp){
+    public static void printRList(BinaryTreeNode temp){
         //base case
         if (temp == null){
             System.out.println();
