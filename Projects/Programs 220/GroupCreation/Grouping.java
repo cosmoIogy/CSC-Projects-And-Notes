@@ -1,42 +1,28 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 class Student {
     String name;
-    List<String> preferredGroupMates;
-    List<Integer> preferenceScores;
-    List<String> haters;
-    List<Integer> haterScores;
+    Map<String, Integer> preferences;
 
     public Student(String name) {
         this.name = name;
-        this.preferredGroupMates = new ArrayList<>();
-        this.preferenceScores = new ArrayList<>();
-        this.haters = new ArrayList<>();
-        this.haterScores = new ArrayList<>();
+        this.preferences = new HashMap<>();
     }
 
     public void addPreference(String studentName, int score) {
-        preferredGroupMates.add(studentName);
-        preferenceScores.add(score);
-    }
-
-    public void addHater(String studentName, int score) {
-        haters.add(studentName);
-        haterScores.add(score);
+        preferences.put(studentName, score);
     }
 
     public int getPreferenceScore(String studentName) {
-        int index = preferredGroupMates.indexOf(studentName);
-        return index != -1 ? preferenceScores.get(index) : 0;
-    }
-
-    public int getHaterScore(String studentName) {
-        int index = haters.indexOf(studentName);
-        return index != -1 ? haterScores.get(index) : 0;
+        return preferences.getOrDefault(studentName, 0);
     }
 }
 
 public class Grouping {
+
     List<Student> students;
 
     public Grouping(List<Student> students) {
@@ -49,6 +35,7 @@ public class Grouping {
 
         while (!ungrouped.isEmpty()) {
             List<Student> group = new ArrayList<>();
+            
             // Step 1: Find the pair with the highest mutual score
             Student bestStudent1 = null;
             Student bestStudent2 = null;
@@ -109,7 +96,6 @@ public class Grouping {
             for (Student s2 : group) {
                 if (!s1.equals(s2)) {
                     score += s1.getPreferenceScore(s2.name);
-                    score += s1.getHaterScore(s2.name);
                 }
             }
         }
@@ -124,27 +110,44 @@ public class Grouping {
             for (Student s : group) {
                 System.out.println(" - " + s.name);
             }
+            System.out.println();  // Blank line between groups
         }
     }
 
     public static void main(String[] args) {
-        // Example setup: create students and add preferences/haters
-        Student s1 = new Student("Belle Walters");
-        s1.addPreference("Quin Simpson", 2);
-        s1.addPreference("Enrique Atkins", 3);
-        s1.addHater("Ira Woodard", -3);
+        List<Student> students = new ArrayList<>();
 
-        Student s2 = new Student("Quin Simpson");
-        s2.addPreference("Belle Walters", 5);
+        // Step 1: Load students and preferences from CSV file
+        try (BufferedReader br = new BufferedReader(new FileReader("compatability_withnames.csv"))) {
+            String line;
+            String[] headers = br.readLine().split(",");  // First row is the headers (student names)
 
-        List<Student> students = Arrays.asList(s1, s2 /*, other students */);
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                Student student = new Student(values[0]);
+
+                // Populate preferences based on CSV data
+                for (int i = 1; i < values.length; i++) {
+                    int score = Integer.parseInt(values[i]);
+                    if (score != 0) {  // Ignore zero scores (no preference)
+                        student.addPreference(headers[i], score);
+                    }
+                }
+                students.add(student);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Step 2: Set group size and form optimized groups
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the desired group size: ");
+        int groupSize = scanner.nextInt();
+
         Grouping grouping = new Grouping(students);
-
-        // Set group size and form optimized groups
-        int groupSize = 4;
         List<List<Student>> optimizedGroups = grouping.formOptimizedGroups(groupSize);
 
-        // Print the best groups
+        // Step 3: Print all groups with scores
         grouping.printBestGroups(optimizedGroups);
     }
 }
