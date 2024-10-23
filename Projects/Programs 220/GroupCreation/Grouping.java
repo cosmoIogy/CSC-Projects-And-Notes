@@ -24,72 +24,80 @@ class Student {
 public class Grouping {
 
     List<Student> students;
+    Random rand = new Random();  // Random object for introducing randomness
 
     public Grouping(List<Student> students) {
         this.students = students;
     }
 
+    // Method to form optimized groups dynamically based on group size
     public List<List<Student>> formOptimizedGroups(int groupSize) {
-        List<List<Student>> groups = new ArrayList<>();
-        Set<Student> ungrouped = new HashSet<>(students);
+        List<List<Student>> bestGroups = new ArrayList<>();
+        int bestTotalScore = Integer.MIN_VALUE;
 
-        while (!ungrouped.isEmpty()) {
-            List<Student> group = new ArrayList<>();
-            
-            // Step 1: Find the pair with the highest mutual score
-            Student bestStudent1 = null;
-            Student bestStudent2 = null;
-            int bestScore = Integer.MIN_VALUE;
+        // Attempt multiple iterations to find the best possible grouping
+        for (int iteration = 0; iteration < 1000; iteration++) {
+            List<List<Student>> groups = new ArrayList<>();
+            Set<Student> ungrouped = new HashSet<>(students);
 
-            for (Student s1 : ungrouped) {
-                for (Student s2 : ungrouped) {
-                    if (!s1.equals(s2)) {
-                        int mutualScore = s1.getPreferenceScore(s2.name) + s2.getPreferenceScore(s1.name);
-                        if (mutualScore > bestScore) {
-                            bestStudent1 = s1;
-                            bestStudent2 = s2;
-                            bestScore = mutualScore;
+            // Step 1: Form groups by randomly selecting pairs and adding best candidates
+            while (!ungrouped.isEmpty()) {
+                List<Student> group = new ArrayList<>();
+                
+                // Step 2: Randomly select the first student for the group
+                Student firstStudent = getRandomStudent(ungrouped);
+                group.add(firstStudent);
+                ungrouped.remove(firstStudent);
+
+                // Step 3: Fill the group with the best possible candidates, dynamically based on group size
+                while (group.size() < groupSize && !ungrouped.isEmpty()) {
+                    Student bestCandidate = null;
+                    int bestCandidateScore = Integer.MIN_VALUE;
+
+                    for (Student candidate : ungrouped) {
+                        int candidateScore = 0;
+                        for (Student member : group) {
+                            candidateScore += member.getPreferenceScore(candidate.name) + candidate.getPreferenceScore(member.name);
+                        }
+
+                        if (candidateScore > bestCandidateScore) {
+                            bestCandidate = candidate;
+                            bestCandidateScore = candidateScore;
                         }
                     }
-                }
-            }
 
-            if (bestStudent1 != null && bestStudent2 != null) {
-                group.add(bestStudent1);
-                group.add(bestStudent2);
-                ungrouped.remove(bestStudent1);
-                ungrouped.remove(bestStudent2);
-            }
-
-            // Step 2: Fill the group with the best possible candidates
-            while (group.size() < groupSize && !ungrouped.isEmpty()) {
-                Student bestCandidate = null;
-                int bestCandidateScore = Integer.MIN_VALUE;
-
-                for (Student candidate : ungrouped) {
-                    int candidateScore = 0;
-                    for (Student member : group) {
-                        candidateScore += member.getPreferenceScore(candidate.name) + candidate.getPreferenceScore(member.name);
-                    }
-
-                    if (candidateScore > bestCandidateScore) {
-                        bestCandidate = candidate;
-                        bestCandidateScore = candidateScore;
+                    if (bestCandidate != null) {
+                        group.add(bestCandidate);
+                        ungrouped.remove(bestCandidate);
                     }
                 }
 
-                if (bestCandidate != null) {
-                    group.add(bestCandidate);
-                    ungrouped.remove(bestCandidate);
-                }
+                groups.add(group);
             }
 
-            groups.add(group);
+            // Step 4: Calculate the total score of the current group configuration
+            int totalScore = calculateTotalGroupScore(groups);
+
+            // Step 5: Keep track of the best grouping based on the total score
+            if (totalScore > bestTotalScore) {
+                bestTotalScore = totalScore;
+                bestGroups = groups;
+            }
         }
 
-        return groups;
+        return bestGroups;
     }
 
+    // Method to calculate the total score of all groups combined
+    public int calculateTotalGroupScore(List<List<Student>> groups) {
+        int totalScore = 0;
+        for (List<Student> group : groups) {
+            totalScore += calculateGroupScore(group);
+        }
+        return totalScore;
+    }
+
+    // Method to calculate the score of a group based on the preferences within the group
     public int calculateGroupScore(List<Student> group) {
         int score = 0;
         for (Student s1 : group) {
@@ -102,6 +110,20 @@ public class Grouping {
         return score;
     }
 
+    // Helper method to get a random student from a set of ungrouped students
+    private Student getRandomStudent(Set<Student> ungrouped) {
+        int index = rand.nextInt(ungrouped.size());
+        int i = 0;
+        for (Student student : ungrouped) {
+            if (i == index) {
+                return student;
+            }
+            i++;
+        }
+        return null;  // Should never happen
+    }
+
+    // Print all groups with their calculated scores
     public void printBestGroups(List<List<Student>> groups) {
         for (int i = 0; i < groups.size(); i++) {
             List<Student> group = groups.get(i);
