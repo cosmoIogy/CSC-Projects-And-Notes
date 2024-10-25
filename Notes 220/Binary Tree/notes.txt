@@ -1,0 +1,29 @@
+In order : BCEFGHJKPRSXZ
+-go to root, left, right
+
+
+Pre order: JEBCGFHPKSRXZ
+-go to left, root, right
+
+--
+
+general tree to binary tree
+
+1. root stays the same
+2. left most child of root becomes left child
+3. remaining children are cascaded as right children of the left child
+
+--
+
+2-3 Trees 
+-a self balancing tree
+
+
+1,2,3,4,5,6,7,8,9,10 
+
+-at the end of your insertion you should have a valid 2-3 tree
+-all the insertion happen at leaves
+-if there are no spaces in a node:
+    -node splits
+    -extreme values become nodes
+    -the middle value gets promoted
