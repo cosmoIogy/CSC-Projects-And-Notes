@@ -18,12 +18,32 @@ general tree to binary tree
 2-3 Trees 
 -a self balancing tree
 
-
 1,2,3,4,5,6,7,8,9,10 
 
 -at the end of your insertion you should have a valid 2-3 tree
+-1 piece of info means two branches, 2 pieces of info means 3 branches
 -all the insertion happen at leaves
 -if there are no spaces in a node:
     -node splits
     -extreme values become nodes
     -the middle value gets promoted
+
+
+--
+max heap tree
+
+-always filled from top to bottom and left to right
+-root is biggest element
+-if a node is larger than its parents, then it swaps places
+
+to find left child of a node: 2n
+right child of a node: 2n + 1
+parent of a node: n/2
+
+insertion : O(log2n)
+max : O(1)
+
+to delete root:
+1. swap root with most recent leaf
+2. kill the link of the swapped leaf
+3. keep swapping with the larger of the children until it reaches it final resting place
