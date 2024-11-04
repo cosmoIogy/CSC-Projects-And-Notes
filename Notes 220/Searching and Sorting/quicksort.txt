@@ -1,0 +1,9 @@
+choose the left most number and compare all the numbers to the left (bigger) and to the right(smaller) of it.
+
+if all the numbers to the left and right of it are in the right spot then that number is sorted
+
+if not,
+approach the list from the left to find the first largest number and from the right to find the first smaller value. then swap these numbers.
+then approach from the left and the right from the new L and R.
+when are L and R meet then the pivot moves
+

@@ -1,0 +1,4 @@
+represented anything with nodes(vertices) and edges(the lines that connect the nodes)
+
+minimum cycling tree-
+get rid of any cycles

@@ -1,0 +1,18 @@
+-used to store large amounts of items
+    -stores key-value pairs
+    -the key can be anything
+
+
+-the hash function
+    -takes the key and converts into an integers which becomes the index in the hash table. this becomes a way of encryption
+    
+
+-what if two values are fighting for the same spot?
+    -go to the next slot
+
+real world exs:    
+-computer cache
+-spell checkers
+
+
+
