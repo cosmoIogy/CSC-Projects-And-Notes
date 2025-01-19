@@ -38,7 +38,7 @@ The compliation system has 4 steps:
     -Linking (ld)
 
 Preprocessing
-The preprocessor (cpp) modifies the original C program accoring to directives that begin with the # character. For example,
+The preprocessor (cpp) modifies the original C program according to directives that begin with the # character. For example,
 the #include <stdio.h> command in line 1 of hello.c tells the preprocessor to read the contents of the system header file stdio.h
 and insert it directly in the program text
 -input: hello.c 
@@ -105,7 +105,7 @@ by an application to manipulate the hardware must go through the operating syste
     2. to provide applications with simple and uniform mechanisms for manipulating complicated and often widly different low-level
     hardware devices
 
--the operating system achibes both goals via the fundemental abstractions:
+-the operating system achives both goals via the fundemental abstractions:
     -processes
     -virtual memory 
     -files 
