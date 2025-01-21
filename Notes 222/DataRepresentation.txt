@@ -1,0 +1,141 @@
+Representing Data 
+
+Binary Representations:
+- Base 2 Number Representations:
+    - Represent 15213 (base 10) -> 11101101101101 (base 2)
+    - Represent 1.5213 (base 10) -> 1.1101101101101 * 2^13
+
+Encoding Byte Values:
+- Byte : 8 bits
+    - Binary :             00000000 - 11111111
+    - Hexadecimal :         0 - FF
+        -Base 16 number Representation
+        - Uses the character 0 to 9 and A to F
+        - Write FA1D37B (base 16) in C as 0xFA1D37B or 0xfa1d37b
+    - Decimal :             0 - 255
+
+Machine Words
+-Machine has "Words Size"
+-Most current machines are 64-bit (8 byte)
+    -Potentially address 1.8 * 10^19 bytes
+-Older machines are 32-bit (4 byte)
+    -Limit addresses to 4gb
+    -Too small for memory-intensive applications 
+-Machines support multiple data formats
+    -Fractions or multiple word size
+    -Always integral number of bytes
+
+Word Oriented Memory Organization:
+- Addresses Specify Byte Locations
+    -Address of first byte in word
+    -Addresses of successive words differ by 4 (32-bit) or 8 (64-bit)
+
+Byte Ordering
+- 2 conventions:
+    -Big Endian : Least significant byte has the highest address
+    -Little Endian: Least significant byte has the lowest address
+
+Example:
+    -Variable X : 0x1234567
+    -Address given as &X : 0x100
+
+                  | 0x98 | 0x99 | 0x100 | 0x101 | 0x102 | 0x103 | 0x104
+Big Endian:       |      |      |  01   |   23  |  45   |   67  |   
+Little Endian:    |      |      |  67   |   45  |  23   |   01  |
+
+
+Data Representations: Sizes of C data types (in bytes)
+
+Data Types      64-bit      32-bit 
+
+int             4           4
+long            8           4
+character       1           1
+short           2           2
+float           4           4
+double          8           8 (will split up value)
+char *          8           4
+
+Boolean Algebra
+-Developed by George Boole in 19th Century
+    -Encode True 1 and False is 0
+    -AND : A&B = 1 when both A = 1 and B = 1
+    - OR : A|B = 1 when either A = 1 or B = 1
+    - NOT : ~A = 1 when A = 0
+    - Exclusive-Or (XOR) : A^B = 1 when either A = 1 or B = 1 but not both
+
+Properties of & and ^/|
+    -Commutative sum : A^B = B^A 
+    -Commutative product : A&B = B&A 
+    -Assocative sum: (A^B)^C = A^(B^C)
+    -Associative product: (A&B)&C = A&(B&C)
+    -Product over sum (Distrubution): A&(B^C) = (A^B)&(A^C)
+    - 0 is sum identity = A^0 = A 
+    - 1 is product identity: A&1 = A 
+    - 0 is product annihilator : A&0 = 0
+    - Additive inverse : A^A = 0
+
+    Bit Level Operations in C:
+    -Operations &, |, ~, ^ available C 
+        -long, int, short, char
+    -View arguments as bit-vectors
+    -Arguments applied bitwise (one bit at a time)
+    -Examples:
+        - ~0x49     -> 0xB6
+          ~01001001 -> 10110110
+          ~0x41     -> 0xBE
+          ~01000001 -> 10111110
+          ~0x00     -> 0xFF
+          ~00000000 -> 11111111
+
+          -0x69 & 0x55
+          01101001
+         &01010101
+          01000001 -> 0x41
+
+          -0x69 | 0x55
+          01101001
+        | 01010101
+          01111101 -> 0x7D 
+
+Logic Operations
+-Operators:
+    -&&, ||, !
+    -View 0 as False
+    -Anything else as True 
+    -Always return 0 or 1
+
+Examples:
+    - !0x41 -> 0x00
+    - !0x00 -> 0x01
+    - !!0x41 -> 0x01
+
+    -0x69 && 0x55 -> 0x01
+    -0x69 || 0x55 -> 0x01
+
+Shift Operations:
+-Left Shift:        x << y
+    - shift bit-vector x left y positions
+        -throw away extra bits on the left
+        -Fill in with 0's on the right
+
+-Right Shift:       x >> y
+    -shift bit-vector x right y positions
+        -throw away extra bits on the right
+        -Logical Shift:
+            - Fill in with 0's on the left
+        -Arithmetic shift:
+            -Replicate most significant bit on the right
+            -Useful for two's complement integer representation 
+
+
+-Examples:
+    - x = 0b01100010
+    x << 3 = 0b00010(000)
+    log >> 2 = 0b(00)011000
+    arith >> 2 = 0b(00)011000
+
+    - x = 0b10100010
+    x << 4 = 0b0010(0000)
+    log >> 3 = 0b(000)10100
+    arith >> 6 = 0b(111111)10
