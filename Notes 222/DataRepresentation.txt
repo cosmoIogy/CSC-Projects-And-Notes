@@ -139,3 +139,154 @@ Shift Operations:
     x << 4 = 0b0010(0000)
     log >> 3 = 0b(000)10100
     arith >> 6 = 0b(111111)10
+
+    Review
+
+    BITWISE OPERATIONS 
+
+    1. 0x5B | 0x45
+
+        01011011
+       |01000101
+        01011111
+        = 0x5F
+
+    2. ~0x5b & 0x45
+
+        ~01011011
+        =10100100
+        &01000101
+         00000100
+        = 0x04
+
+Unsigned/Signed Integers:
+
+- X = x(w-1)x(w-2)...x(1)x(0)
+
+Unsigned : B2U(X) = (sum from i = 0 to w-1)X(i)*2^i
+
+Two's complement: B2T(x) = -x(w-1)*2^w-1*2^w-1 + (sum from i = 0 to w-1)X(i)*2^i
+    - 1 for negative in most significant bit
+    - 0 for nonnegative
+
+
+char x = 123 : 01111011
+char y = -123 : 10000101
+
+weight          123             -123
+    1           1                 1
+    2           1                 0  
+    4           0                 1
+    8           1                 0
+    16          1                 0
+    32          1                 0
+    64          1                 0
+  -128          0                 1
+
+Numeric Range
+-Unsigned Values
+    -UMin = 0
+    -Umax = (2^w)-1
+-Two's complement
+    -Tmin = -2^w-1
+    -Tmax = 2^w-1 - 1
+
+Values for w = 16
+
+            Decimal             Hexadecimal             Binary 
+Umax        65535               FF FF                   11111111 11111111
+Tmax        32767               7F FF                   01111111 11111111        
+Tmin        -32768              80 00                   10000000 00000000 
+-1          -1                  FF FF                   11111111 11111111 
+0           0                   00 00                   00000000 00000000
+
+
+Word Sizes
+
+            8           16              32              64
+Umax        255         65535           4294967295      ~18 Quintillion
+Tmax        127         32767           2147483647      ~9 Quintillioin
+Tmin        -128        -32768         -2147483648      ~-9 Quintillioin
+
+Observations
+|Tmin| = Tmax + 1
+Umax = (Umax * 2) + 1
+
+C Progamming:
+- #include <limits.h>
+- Declares the constants:
+    - UCHAR_MAX (=255)
+    - CHAR_MAX (=127)
+    - CHAR_MIN (=-128)
+    - INT_MIN
+    - INT_MAX
+    - UINT_MAX
+
+
+Casting Signed to Unsigned in C
+
+char x = 123;
+char y = -123;
+
+unsigned char ux = (unsigned char)x;
+unsigned char uy = (unsigned char)y;
+
+-C allows conversions between signed and unsigned 
+-Resulting Values
+    -No change in bit representation
+    -Nonnegative values are unchanged
+        - ux = 123
+    - Negative values change into positive values
+        - uy = 133
+    
+Constants
+    -By default, constants are signed integers 
+
+Casting 
+    -Explicit Casting
+        int tx, ty
+        unsigned ux, uy 
+    
+        tx = (unsigned) ty 
+        uy = (unsigned) ty 
+        tx = (int) uy 
+
+    -Implicit Casting also occus via assignments and procedure calls 
+        tx = ux 
+        uy = ty
+
+Sign Extension
+- Given a w-bit signed integer x, to convert it to a w+k bit integer of the same value: 
+- Make k copies of the signed bit 
+
+- X = 1001 (-7) w = 4, k = 4
+- X' = 1111 1001 (-7) 
+
+2's Complement and overflow
+- Assume TAdd(u,v) adds u and v together 
+- Determine if s = TAdd(u,  v) overflows
+
+Overflow if and only if either:
+    - u < 0, v < 0, s >= 0 - Negative Overflow 
+    - u >= 0, v >= 0, s < 0 - Positive Overflow 
+
+Power of 2 multiplication with shift
+-Operation 
+    - u << k = u * 2^k 
+    - both signed and unsigned 
+- Left shift x << y:
+    - Shift bit-vector x left y positions 
+    - Fill with 0's on right 
+
+Power of 2 division with shift
+- Quotient of Unsigned by power of 2
+    - u >> k gives u / 2^k 
+    - uses logical shift 
+- Quotient of signed by power of 2
+    - u >> k gives u / 2^k 
+    - uses arithmetic shift (will fill with whatever the sign was)
+- Right shift : x >> y
+    - shift bit-vector x by y positions 
+    - get rid of extra values on the right 
+    - Logical Shift : Fill with 0's on Left 
+    - Arithmetic Shift : Fill missing values with sign bit 
