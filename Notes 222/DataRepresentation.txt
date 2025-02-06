@@ -140,6 +140,8 @@ Shift Operations:
     log >> 3 = 0b(000)10100
     arith >> 6 = 0b(111111)10
 
+------------------------------------------------
+
     Review
 
     BITWISE OPERATIONS 
@@ -290,3 +292,12 @@ Power of 2 division with shift
     - get rid of extra values on the right 
     - Logical Shift : Fill with 0's on Left 
     - Arithmetic Shift : Fill missing values with sign bit 
+
+IEEE 754 Floating Point Representation
+-Similar to representation from 132 course
+-Used instead of sign - expontent - mantissa representation 
+as there are many ways to represent one number in this format, 
+unlike IEEE 754. The nomalization preformed disallows this.
+-Implicit normalization is also more accurate than a possible Explicit
+normalization
+-Has possible precisions based on number of bits to dictate bias:
