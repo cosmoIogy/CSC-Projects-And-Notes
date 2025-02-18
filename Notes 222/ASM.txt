@@ -1,0 +1,122 @@
+- Why learn assembly
+    - Optimization:
+        - Understand the optimization capabilities of a compiler
+        - Analyze the underlying inefficiencies in code
+    - Run-time behvaior analysis:
+        - Understand the run-time behvaior of a program that is hidden by the layer
+        of abstraction that a high level programming language provides
+    - Security:
+        - Understand how programs store their control information to guard against malware that exploits
+        weakness in system programs 
+
+    - C:
+        *dest = t;
+        - Store value t at location pointed by dest 
+
+    - Assembly Code (ASM):
+        movq    %rax, (%rbx)
+        - Move 8 byte valye to memory 
+        - Operands:
+            - t: register      %rax
+            - dest: register   %rbx
+            - *dest: memory    M[%rbx]
+
+    - Machine language 
+        - 0x40059e: 48 89 03
+            - 3 bytes at address 0x40059e
+            - compact representation of the asm instruction 
+            - (relatively) easy for hardware to interpret
+
+    - Intel x86 processor:
+        - dominates laptop/desktop/server market
+        - evolutionary design
+            - backward compatible language, introduced in 1978 
+            - features are added as time goes on 
+
+    - Defintions:
+        - Architecture (ISA: instruction set architecture)
+            - the parts of a processor's design that one needs to undestand to write correct machine/assembly language 
+                - EX: Instruction set specifications, resgister names
+        - Machine code:
+            - the byte level programs that a processor executes
+        - Assembly code (asm):
+            - text representation of machine code
+        - Examples of ISAs:
+            - Intel: x86, IA32, X86-64
+            - ARM (Advanced RISC (reduced instruction set computing) machine)
+                - used in cell phone and mac devices
+
+- Register conventions:
+    - assume function A calls function B: A is the "caller" and B is the "callee"
+
+
+Base            Convention              Calle or Caller Owned?
+a               return value            Callee 
+b               local variable          caller 
+c               4th argument            callee
+d               3rd argument            callee  
+si              2nd argument            callee
+di              1st argument            callee 
+bp              local variable          caller 
+sp              stack pointer           caller 
+r8              5th argument            callee 
+r9              6th argument            callee
+r10             scratch/temp            callee
+r11             scratch/temp            callee
+r12             local variable          caller              
+r13             local variable          caller 
+r14             local variable          caller 
+r15             local variable          caller
+
+Callee Owned/ Caller Saved/ Call Clobbered: used for temp. quantities
+Caller Owned/ Callee Saced/ Call Preserved: used for values needed
+    | Across all calls
+
+Instruction Operands:
+    - With ATT syntax. we address the registers, memory, and immediate values with the following syntax:
+        - $: used in front of immediate values
+        - %: used in front of registers 
+        - (): used typically to dereference a memory address
+            - ie get the value from memory
+    - Examples: 
+        - &-17 is the integer -17
+        - $0xC is the integer 12
+        - 0x108 just a memory address 
+        - %rax access the value stored in register rax 
+        - (%rax) access the value stored in memory as long as rax is holding a memory address 
+
+    - Scaling, shifting and indexing
+     - Format: A(B, I, S)
+        - B: base value '
+        - I: index value (think arrays)
+        - S: scalar on the index value (Must be 1,2,4,or 8)
+        - A: Shift value
+    - Examples:
+        - 9(%rax) - means to access the value at memory location +9 over the address stored in rax 
+        - (%rbx, %rdi)- the base memory location is located at rbx, rdi tells us the index to apply to the base location. usage applies well to arrays, where
+        indexes 
+        - -12(%rbx, %rdi) - base location and index given, shift by -12 memory location 
+        - (, %rdi, 4) - multiply the value at rdi by 4, go to that memory location
+        - 10(, %rdi, 4) - multiply the value of rdi by 4, go to 10 memory addresses past this address 
+        - 10($rbx, %rdi, 4) = determining the index by multiplying rdi by 4. then apply the index to the base. then go 10 memory addresses over
+
+- The move operations:
+        x86 format: Operands    source, destination
+        - mov_      source, dest
+            - moves data from source to a destination
+        
+        - suffixes:
+            - b: byte           movb move 8 bits
+            - w: word           movw move 16 bits 
+            - l: double word    movl move 32 bits 
+            - q: quad word      movq move 64 bits
+
+        Examples:
+        - mov_     $0x4050, %eax 
+            - movl
+        - mov_     %bp, %sp 
+            - movw
+        - mov_     %dx, (%rax)
+            - movw
+        - mov_     (%rsp, %rdx, 4), %dl
+            - movb
