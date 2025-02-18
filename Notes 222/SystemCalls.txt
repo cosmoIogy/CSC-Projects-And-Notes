@@ -46,7 +46,7 @@ Processes:
 
     - Processes provide each program with two key abstractions:
         - Logical control flow: Each program seems to have exclusive use of the CPU
-        - Privvate address space: Each program seems to have exclusive use of main memory
+        - Private address space: Each program seems to have exclusive use of main memory
 
     - Logical control flows:
         - Each process has its own logcal control flows
@@ -80,7 +80,7 @@ Processes:
             - New
                 - Process being created
             - Ready
-                - Waiting to be giver processor time (waiting to be scheduled)
+                - Waiting to be given processor time (waiting to be scheduled)
             - Running
                 - Process is executing
             - Stopped
@@ -107,7 +107,7 @@ Processes:
                 - pid_t getpid(void)
                     - return the PID of the current process
                 - pid_t getppid(void)
-                    - returns te PID of the parent process
+                    - returns the PID of the parent process
 
         - Fork(): creating a new process 
             - We can create new processes by using two libraries:
@@ -243,3 +243,53 @@ Processes:
                 - 0 (no options)
                 - WNOHAND - returns right away if no child has exited 
                 - WCONTINUED - returns if a stopped child has been resumed
+    
+    - Exec() family of functions:
+        - exec() - loads and runs a new program in the context of the current process 
+
+        - execl()
+            - int execl(char *path, char *arg0, char *arg1,..., NULL)
+            - loads and runs executable at path with args (arg0, arg1, etc)
+            - path is the complete path of the exectuable (ex: /bins/ls)
+            - Arg0 becomes the name of the executable 
+            - "real" arguments to the executable start with arg1, etc (ex : -al, -h)
+            - list of args is terminated by a NULL argument
+            - returns -1 if error, otherwise it does not return
+
+        - example : 
+            int main(){
+                if(fork() == 0){
+                    execl("/bin/ls", "ls", "-la", "-h", NULL);
+                }
+                wait(NULL);
+                printf("Listing complete\n");
+                return 0;
+            }
+
+        - execle()
+            - int execle(char *path, char *arg0, char *arg1, ..., NULL, char *envp[]);
+            - loads and runs in the current process: 
+                - executable file "filename"
+                    - can be an object file or script file beginning #!interpreter
+                    (eg #!/bin/bash)
+                    - arg0, by convention is "filename"
+                    - environment variables are listed in envp
+                        - 'name = value' strings (ex : LOGNAME=owner)
+            - called once, does not return unless there is an error 
+        
+        - execlp()
+            - int excelp(char *filename, char *arg0, char *arg1, ..., NULL)
+            - loads and runs in the current process:
+                - executable file "filename"
+                    - can be object file or script file beginning with #!interpreter
+                    - with arguments arg0, arg1
+            - uses default PATH to find executable 
+
+        - execvp() -- likely used in project 
+            - int execvp(char *filename, char *args[])
+            - loads and runs in the current process:
+                - executable file "filename"
+                - with NULL terminated argument array args[]
+            - uses the default PATH to find executable 
+
+    
