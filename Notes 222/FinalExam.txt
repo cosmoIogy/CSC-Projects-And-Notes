@@ -1,0 +1,37 @@
+- Binary Representation
+    - IEEE754
+    - Fraction Representation (1/4 in binary) = .01 
+
+- C Programming
+    - basics
+    - structs
+    - system calls 
+        - forks
+        - exec 
+        - wait 
+
+- Linux Commands
+    - File Modification
+        - chmod
+        - rm, cp, touch, mv, mkdir
+    - System Navigation
+        - cd 
+        - pwd
+        - ls
+    - grep/regex 
+    - Endianness
+
+- Bit level operation 
+    - shifts 
+    - &, |, ~
+
+- Bash Scripting 
+
+- Assembly Language 
+    - registers
+    - instructions: 
+        - jump, cmp, mov, lea 
+    - memory/register table values 
+    - reverse engineering 
+
+- Compilation Process 

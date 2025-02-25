@@ -98,7 +98,7 @@ Instruction Operands:
         - -12(%rbx, %rdi) - base location and index given, shift by -12 memory location 
         - (, %rdi, 4) - multiply the value at rdi by 4, go to that memory location
         - 10(, %rdi, 4) - multiply the value of rdi by 4, go to 10 memory addresses past this address 
-        - 10($rbx, %rdi, 4) = determining the index by multiplying rdi by 4. then apply the index to the base. then go 10 memory addresses over
+        - 10(%rbx, %rdi, 4) = determining the index by multiplying rdi by 4. then apply the index to the base. then go 10 memory addresses over
 
 - The move operations:
         x86 format: Operands    source, destination
