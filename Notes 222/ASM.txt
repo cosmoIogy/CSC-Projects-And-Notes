@@ -120,3 +120,53 @@ Instruction Operands:
             - movw
         - mov_     (%rsp, %rdx, 4), %dl
             - movb
+
+- The lea operation 
+    - Means load effective address
+    - lea_      src, dest
+    - Note that lea can calculate a value at the src operand, but it does not deference (i.e. find it in memory)
+    - Because of this, lea is frequently used for linear math (addition, subtraction, multiplication)
+
+- State Flags:
+    -ZF : Zero Flag: High if the most recent operation resulted in a 0
+    -SF : Sign Flag: High if the most recent operation resulted in a negative value 
+    -CF : Carry Flag: High if the most recent operation resulted in a carry out of the most significant bit 
+    -OF : Overflow Flag : High if the most recent operation caused a two's complement overflow 
+
+- Arithmetic Operations:
+    (two operand instructions)
+    - add_      src, dest       -> Dest = Dest + Src 
+    - sub_      src, dest       -> Dest = Dest - Src
+    - imul_     src, dest       -> Dest = Dest * Src
+    - sal_      src, dest       -> Dest = Dest << Src
+    - sar_      src, dest       -> Dest = Dest >> Src (arithmetic shift)
+    - shr_      src, dest       -> Dest = Dest >> Src (logical shift)
+    - xor_      src, dest       -> Dest = Dest ^ Src
+    - and_      src, dest       -> Dest = Dest & Src
+    - or_       src, dest       -> Dest = Dest | Src
+
+    (single operand instructions)
+
+    - inc_  Dest        Dest = Dest + 1
+    - dec_  Dest        Dest = Dest - 1
+    - neg_  Dest        Dest = -Dest
+    - not_  Dest        Dest = ~Dest 
+
+- Comparison and Jump Operations
+    - cmp_      op2, op1        result = op1-op2
+        - the result will set the ZF, SF, OF, and Cf flags 
+    - jmp target 
+        - unconditional jump to the target 
+    - je target (Jump if equal)
+        - if ZF = 1, jump to the target 
+    - jne target (Jump if not equal)
+        - if ZF = 0, jump to the target 
+    - jg target (Jump if greater)
+        - if ZF = 0 and SF = OF, jump 
+    - jge target (Jump if greater or equal)
+        - if SF = OF, jump 
+    - jl target (Jump if less)
+        - if SF! = OF, jump 
+    - jle target (jump if less or equal)
+        - if ZF == 1 or SF != OF, jump 
+

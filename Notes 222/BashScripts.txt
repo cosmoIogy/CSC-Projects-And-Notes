@@ -52,7 +52,7 @@
         - $PWD 
     - User defined variables 
         - var_name=value #no spaces
-        - eecho "$var_name"
+        - echo "$var_name"
     - Special Variables
         Variables   Meaning
         $0          Name of the current shell script 
@@ -157,7 +157,7 @@
             pattern2) command-list2
             ;;
         esac
-    - Multiple patters can be listed 
+    - Multiple patterns can be listed 
 
 - While Loops:
     - Syntax:
